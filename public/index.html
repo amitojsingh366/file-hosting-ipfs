@@ -150,10 +150,11 @@
 
 <body>
 
-    <form action="/" method="post" enctype="multipart/form-data">
+    <form enctype="multipart/form-data" id="upload-form">
         <div class="title">
             <h1>IPFS File Hosting</h1>
         </div>
+        <a style="display: none;" id="uploadlink"></a>
         <label for="test" class="te">
             <span style="margin-top: 60px;">
                 <div class="up"><img src="upload.png" width="55px" alt=""></div>
@@ -162,7 +163,7 @@
             <input type="file" id="test" name="avatar">
         </label>
         <p id="filename">File: None</p>
-        <button class="button1">
+        <button class="button1" id="upload-button">
             <p><span style="font-size: 16px;"><i class="fas fa-file-upload"></i></p>
             <p class="vertical-text" style="margin-left: 5px;">Upload</p>
         </button>
@@ -172,9 +173,10 @@
         </a>
     </form>
     <script>
-        var fileInput = document.querySelector('input[type=file]');
-        var filenameContainer = document.querySelector('#filename');
-        var dropzone = document.querySelector('div');
+        const fileInput = document.querySelector('input[type=file]');
+
+        const filenameContainer = document.getElementById('filename');
+        const dropzone = document.querySelector('div');
 
         fileInput.addEventListener('change', function () {
             filenameContainer.innerText = "File: " + fileInput.value.split('\\').pop();
@@ -187,6 +189,24 @@
         fileInput.addEventListener('dragleave', function () {
             dropzone.classList.remove('dragover');
         });
+
+        document.getElementById("upload-button").addEventListener("click", (e) => {
+            e.preventDefault();
+            const request = new XMLHttpRequest();
+            request.open("POST", "/upload");
+            request.send(new FormData(document.getElementById("upload-form")));
+            request.onreadystatechange = (e) => {
+                if (request.responseText) {
+                    const link = document.getElementById("uploadlink");
+                    link.style.display = 'inherit';
+                    link.innerText = request.responseText;
+                    link.href = request.responseText;
+                    document.getElementById("test").value = "";
+                    document.getElementById('filename').innerText = "File: None"
+                }
+            }
+        })
+
     </script>
 </body>
 
