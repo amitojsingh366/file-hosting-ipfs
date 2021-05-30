@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const path = require('path'); 
 
 const fs = require('fs');
 
@@ -8,9 +9,11 @@ var upload = multer({ dest: 'uploads/' });
 
 var ipfsAPI = require('ipfs-api');
 var ipfs = ipfsAPI('ipfs.infura.io', '5001', {protocol: 'https'});
- 
-app.get('/', function (req, res) {
-    res.sendFile(__dirname+'/public/index.html');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.post('/', upload.single('avatar'), function (req, res, next) {
