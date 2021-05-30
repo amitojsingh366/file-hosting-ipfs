@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IPFS File Hosting</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body{
+            background-color: #24292E;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .test{
+            color: white;
+        }
+
+        .upload{
+            background-color: #42A5F5;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            width: 100%;
+            padding: 15px;
+            border-radius: 3px;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .upload:hover{
+            background-color: #3c98e4;
+            transition: .22s;
+        }
+    </style>
+</head>
+<body>
+    <div class="fo">
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input class="test" type="file" name="avatar" /><br><br>
+        <button class="upload">UPLOAD</button>
+      </form> 
+    </div>
+</body>
+</html>
